@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claro - Gestión de Datos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Bienvenido a Claro</h1>
+        <div class="input-group">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" placeholder="Ingrese su nombre">
+        </div>
+        <div class="input-group">
+            <label for="documento">Documento:</label>
+            <input type="text" id="documento" placeholder="Ingrese su documento">
+        </div>
+        <div class="input-group">
+            <label for="telefono">Teléfono:</label>
+            <input type="text" id="telefono" placeholder="Ingrese su teléfono">
+        </div>
+        <div class="input-group">
+            <label for="horario">Horario de Contacto:</label>
+            <input type="text" id="horario" placeholder="Ingrese el horario de contacto">
+        </div>
+        <button id="guardar-btn">Guardar Datos</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+    <script>
+        document.getElementById('guardar-btn').addEventListener('click', function() {
+            guardarDatosEnExcel();
+        });
+
+        function guardarDatosEnExcel() {
+            let datos = [
+                {
+                    Nombre: document.getElementById('nombre').value,
+                    Documento: document.getElementById('documento').value,
+                    Teléfono: document.getElementById('telefono').value,
+                    'Horario de Contacto': document.getElementById('horario').value
+                }
+            ];
+
+            let libro = XLSX.utils.book_new();
+            let hoja = XLSX.utils.json_to_sheet(datos);
+            XLSX.utils.book_append_sheet(libro, hoja, "Datos");
+            XLSX.writeFile(libro, "datos_guardados.xlsx");
+        }
+
+        function visualizarDatosDesdeExcel() {
+            // Aquí puedes agregar la funcionalidad para visualizar datos desde un archivo Excel
+        }
+    </script>
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyDB_vOx8db1PD9KnJIZBkO1Hk9MwQpSFDQ",
+    authDomain: "empresa-fda5d.firebaseapp.com",
+    projectId: "empresa-fda5d",
+    storageBucket: "empresa-fda5d.appspot.com",
+    messagingSenderId: "143257132979",
+    appId: "1:143257132979:web:52474cb47428d4dd3d35c6",
+    measurementId: "G-E4DZ5VYJF6"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
+</body>
+</html>
+
